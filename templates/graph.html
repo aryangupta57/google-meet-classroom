@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='graph_styles.css') }}" />
+  <title>Graphs</title>
+</head>
+
+<body>
+  {% for graphic in graphicBig %}
+  <div id="chart">
+    <ul id="numbers">
+      <li><span>{{100*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{90*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{80*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{70*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{60*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{50*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{40*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{30*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{20*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{10*graphicBig[0][0]["counts"]/100}}</span></li>
+      <li><span>{{0*graphic[0]["counts"]/100}}</span></li>
+    </ul>
+
+    <ul id="bars">
+      {% for key in graphic %}
+      <li>
+        <div data-percentage="{{ key['counts'] }}" class="bar"></div>
+        <span>{{ key['names'] }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      $("#bars li .bar").each(function (key, bar) {
+        var percentage = $(this).data('percentage');
+        $(this).animate({
+          'height': percentage * 100 / {{ graphicBig[0][0]["counts"] }} + '%'
+          }, 1000);
+        });
+      });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commands</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='command_styles.css') }}" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="profile">
+        <div class="profile-image">
+          <img
+            src="https://images.unsplash.com/photo-1602667230857-e38de6938986?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" />
+        </div>
+
+        <div class="profile-user-settings">
+          <h1 class="profile-user-name">Welcome! {{username}}</h1>
+          <a href="http://localhost:5000/analysis"><button class="btn profile-edit-btn">Full Data</button></a>
+          <a href="http://localhost:5000/realTime"><button class="btn profile-edit-btn">Now Data</button></a>
+        </div>
+        <div class="profile-bio">
+          <p><span class="profile-real-name"></span>Below are the commands</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="gallery">
+        {% for command in commands %}
+        <div class="gallery-item" tabindex="0">
+          <div class="commandText">{{ command.name }}</div>
+
+          <div class="gallery-item-info">
+            <ul>
+              <li class="gallery-item-likes">
+                <span class="visually-hidden">s:</span><i class="fas fa-heart" aria-hidden="true"></i>{{
+                command.what }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
